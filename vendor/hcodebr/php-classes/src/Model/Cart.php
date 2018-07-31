@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Hcode\Model;
 
@@ -34,8 +34,8 @@ class Cart extends Model {
 				if (User::checkLogin(false)) {
 
 					$user = User::getFromSession();
-					
-					$data['iduser'] = $user->getiduser();	
+
+					$data['iduser'] = $user->getiduser();
 
 				}
 
@@ -76,7 +76,7 @@ class Cart extends Model {
 
 		}
 
-	}	
+	}
 
 	public function get(int $idcart)
 	{
@@ -158,11 +158,11 @@ class Cart extends Model {
 		$sql = new Sql();
 
 		$rows = $sql->select("
-			SELECT b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl, COUNT(*) AS nrqtd, SUM(b.vlprice) AS vltotal 
-			FROM tb_cartsproducts a 
-			INNER JOIN tb_products b ON a.idproduct = b.idproduct 
-			WHERE a.idcart = :idcart AND a.dtremoved IS NULL 
-			GROUP BY b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl 
+			SELECT b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl, COUNT(*) AS nrqtd, SUM(b.vlprice) AS vltotal
+			FROM tb_cartsproducts a
+			INNER JOIN tb_products b ON a.idproduct = b.idproduct
+			WHERE a.idcart = :idcart AND a.dtremoved IS NULL
+			GROUP BY b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl
 			ORDER BY b.desproduct
 		", [
 			':idcart'=>$this->getidcart()
@@ -210,7 +210,7 @@ class Cart extends Model {
 				'nCdEmpresa'=>'',
 				'sDsSenha'=>'',
 				'nCdServico'=>'40010',
-				'sCepOrigem'=>'09853120',
+				'sCepOrigem'=>'93310066',
 				'sCepDestino'=>$nrzipcode,
 				'nVlPeso'=>$totals['vlweight'],
 				'nCdFormato'=>'1',
