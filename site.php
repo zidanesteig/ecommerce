@@ -133,6 +133,7 @@ $app->get("/checkout", function(){
 	}
 
 	if(!$address->getdesaddress()) $address->setdesaddress('');
+	if(!$address->getdesnumber()) $address->setdesnumber('');
 	if(!$address->getdescomplement()) $address->setdescomplement('');
 	if(!$address->getdesdistrict()) $address->setdesdistrict('');
 	if(!$address->getdescity()) $address->setdescity('');
@@ -206,9 +207,8 @@ $app->post("/checkout", function(){
 		'idstatus'=>OrderStatus::EM_ABERTO,
 		'vltotal'=>$totals['vlprice'] + $cart->getvlfreight()
 	]);
-
 	$order->save();
-	header("location: /order".$order->getidorder());
+	header("location: /order/".$order->getidorder());
 	exit;
 
 });
@@ -402,19 +402,25 @@ $app->post("/profile", function(){
 $app->get("/order/:idorder", function($idorder){
 
 	User::verifyLogin(false);
+
 	$order = new Order();
+
 	$order->get((int)$idorder);
+
 	$page = new Page();
+
 	$page->setTpl("payment", [
 		'order'=>$order->getValues()
-		]);
+	]);
 
 });
 
-$app->get("/boleto/:idorder", function(){
+$app->get("/boleto/:idorder", function($idorder){
 
 	User::verifyLogin(false);
+
 	$order = new Order();
+
 	$order->get((int)$idorder);
 
 	// DADOS DO BOLETO PARA O SEU CLIENTE
@@ -474,10 +480,10 @@ $app->get("/boleto/:idorder", function(){
 	$dadosboleto["cedente"] = "HCODE TREINAMENTOS LTDA - ME";
 
 	// NÃO ALTERAR!
-	$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "bolephp" . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR;
+	$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "boletophp" . DIRECTORY_SEPARATOR . "include" . DIRECTORY_SEPARATOR;
 
-	require_once("include/funcoes_itau.php");
-	require_once("include/layout_itau.php");
+	require_once($path . "funcoes_itau.php");
+	require_once($path . "layout_itau.php");
 });
 
 ?>
