@@ -443,7 +443,7 @@ class User extends Model {
 			':search'=>'%'.$search.'%'
 		]);
 
-		$resultTotal = $db->select("SELECT FOUND_ROWS() AS nrtotal;");
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
 
 		return [
 			'data'=>$results,
