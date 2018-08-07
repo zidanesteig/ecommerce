@@ -10,6 +10,12 @@ function formatPrice($vlprice){
 
 }
 
+function format_date($date){
+
+	return date ('d/m/Y', strtotime($date));
+
+}
+
 function post($key)
 {
 	return str_replace("'", "", $_POST[$key]);
